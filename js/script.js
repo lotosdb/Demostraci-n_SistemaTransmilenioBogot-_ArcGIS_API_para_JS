@@ -4,7 +4,7 @@ require([
     "esri/layers/FeatureLayer",
     "esri/renderers/UniqueValueRenderer",
 ], function (WebScene, SceneView, FeatureLayer, UniqueValueRenderer) {
-    // Create view and load an existing webscene into it
+    //Se crea la vista y se carga una Escena especifica
     const webscene = new WebScene({
         portalItem: {
             // autocasts as new PortalItem()
@@ -27,15 +27,10 @@ require([
         }
     });
 
-    /*************************************************
-     * These options can be set on a PathSymbol3DLayer.
-     * `profile` changes the shape of the path to be either
-     * rectangular or round, `cap` styles the start and
-     * end vertices of the path and `join` styles the start
-     * and end vertices of the segments along the path.
-     * `profileRotation` controls the rotation of the profile
-     * along the path.
-     **************************************************/
+   /**So configuran las opciones por defecto para
+    * la capa de símbología "path" que se usa en la 
+    * visualización de transitLayer
+    */
     const options = {
         profile: "quad",
         cap: "round",
@@ -46,7 +41,9 @@ require([
         profileRotation: "all"
     };
 
-    /* The colors used for the each transit line */
+    /**Se configuran los colores con los que se mostrarán
+     * las diferentes troncales del sistema Transmilenio
+     */
     const colors = {
         1: [255, 0, 16],//Americas rojo
         2: [0, 166, 63],//Auto NOrte morado
@@ -63,13 +60,7 @@ require([
         13: [255, 255, 0]//Suba Amarillo
     };
 
-    /****************************************
-    * Function that sets a renderer with a
-    * unique path symbol for each transit line.
-    * The path symbol uses the properties from
-    * the options object, which are set everytime
-    * the user modifies the settings in the menu.
-    * **************************************/
+    
     const fieldsRenderer = {
         type: "simple",
         symbol: {
@@ -161,11 +152,12 @@ require([
 
 
     /****************************************
-     * Function that sets a renderer with a
-     * unique path symbol for each transit line.
-     * The path symbol uses the properties from
-     * the options object, which are set everytime
-     * the user modifies the settings in the menu.
+     * Función que configura un renderer con un 
+     * único símbolo tipo Path por cada lide troncal.
+     * El símbolo tipo path usa las propiedades desde 
+     * el objeto options, las cuales son asignadas 
+     * cada vez que el usuario modifica las 
+     * configuraciones desde el menú. 
      * **************************************/
     function renderTransitLayer() {
         const renderer = new UniqueValueRenderer({
@@ -205,10 +197,10 @@ require([
 
 
     /*************************************************
-     * The rest of the sample adds event listeners
-     * on the input elements in the menu, to modify
-     * the path properties in the options object and
-     * rerender the layer.
+     * El resto del ejemplo agrega 'event listeners'
+     * en la entrada de elementos en el menú, para 
+     * modificar las propiedades del path en el objeto 
+     * opciones y renderizado de la capa.
      *************************************************/
 
     const styleSelect = document.getElementById("style");
