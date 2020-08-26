@@ -4,10 +4,9 @@ require([
     "esri/layers/FeatureLayer",
     "esri/renderers/UniqueValueRenderer",
 ], function (WebScene, SceneView, FeatureLayer, UniqueValueRenderer) {
-    //Se crea la vista y se carga una Escena especifica
+    //Se crea la vista y se carga una Escena específica.
     const webscene = new WebScene({
         portalItem: {
-            // autocasts as new PortalItem()
             id: "e46e52ea75b34f7ebc9af6abdbadd848"
         }
     });
@@ -27,10 +26,12 @@ require([
         }
     });
 
-   /**So configuran las opciones por defecto para
-    * la capa de símbología "path" que se usa en la 
-    * visualización de transitLayer
-    */
+    /**Se configura el objeto opcions que 
+     * contiente las propiedades que se configuran 
+     * por defecto en la función renderTransitLayer
+     * para la capa de símbología "path" que se usa en la 
+     * visualización de transitLayer.
+     */
     const options = {
         profile: "quad",
         cap: "round",
@@ -42,7 +43,7 @@ require([
     };
 
     /**Se configuran los colores con los que se mostrarán
-     * las diferentes troncales del sistema Transmilenio
+     * las diferentes troncales del sistema Transmilenio.
      */
     const colors = {
         1: [255, 0, 16],//Americas rojo
@@ -60,7 +61,9 @@ require([
         13: [255, 255, 0]//Suba Amarillo
     };
 
-    
+    /**Objeto que contiene la estructura de la
+     * propiedad renderer de la capa stationLayer.
+     */
     const fieldsRenderer = {
         type: "simple",
         symbol: {
@@ -86,6 +89,10 @@ require([
         },
     }
 
+    /**Objeto que contiene la estructura 
+     * del label se configura para ser 
+     * mostrado en la capa stationLayer.
+     */
     const label = {
         type: "label-3d",
         labelExpressionInfo: {
@@ -105,7 +112,9 @@ require([
         ],
     }
 
-    /* Create layer with the stations points */
+    /** Se crea la capa de entidad que contiene las estaciones 
+    * del sistema Transmilenio como puntos. 
+    */
     const stationLayer = new FeatureLayer({
         url: "https://geoportal.esri.co/server/rest/services/Hosted/TM/FeatureServer/0",
         renderer: fieldsRenderer,
@@ -117,7 +126,9 @@ require([
     });
     webscene.add(stationLayer);
 
-    /* Create layer with the transit lines */
+    /**Se crea la capara de entidad que contiene las lineas
+     * troncales del sistema Transmilenio.
+     */
     const transitLayer = new FeatureLayer({
         url: "https://geoportal.esri.co/server/rest/services/Hosted/TM/FeatureServer/1",
         elevationInfo: {
@@ -128,6 +139,9 @@ require([
     });
     webscene.add(transitLayer);
 
+    /**Se crea la capara de entidad que contiene los portales
+    * del sistema Transmilenio como polígonos.
+    */
     const portalLayer = new FeatureLayer({
         url: "https://integralportal.esri.co/server/rest/services/Hosted/Trasmilenio/FeatureServer/2",
         title: "Portales de Transmilenio Bogotá",
@@ -244,6 +258,6 @@ require([
         renderTransitLayer();
     });
 
-    
+
     view.ui.add("menu", "top-right");
 });
